@@ -1,0 +1,19 @@
+{
+  "id": "mysql",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "mysql:5.7.6",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "hostPort": 0, "containerPort": 3306, "servicePort": 9001 }
+      ]
+    }
+  },
+  "env": {
+    "MYSQL_ROOT_PASSWORD": "xyzzy"
+  },
+  "instances": 1,
+  "cpus": 0.1,
+  "mem": 256
+}

@@ -1,0 +1,202 @@
+{
+  "apps": [
+    {
+      "backoffFactor": 1.15,
+      "backoffSeconds": 1,
+      "cmd": "sleep 3 && python -m http.server 80",
+      "container": {
+        "docker": {
+          "forcePullImage": false,
+          "image": "python:3",
+          "parameters": [],
+          "privileged": false
+        },
+        "portMappings": [
+          {
+            "containerPort": 80,
+            "hostPort": 0,
+            "labels": {},
+            "protocol": "tcp",
+            "servicePort": 10106
+          }
+        ],
+        "type": "DOCKER",
+        "volumes": []
+      },
+      "cpus": 0.1,
+      "disk": 0,
+      "executor": "",
+      "gpus": 0,
+      "healthChecks": [
+        {
+          "delaySeconds": 15,
+          "gracePeriodSeconds": 10,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 2,
+          "maxConsecutiveFailures": 10,
+          "path": "/",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+        }
+      ],
+      "id": "/department-a/service-common",
+      "instances": 2,
+      "killSelection": "YOUNGEST_FIRST",
+      "labels": {},
+      "maxLaunchDelaySeconds": 3600,
+      "mem": 32,
+      "networks": [
+        {
+          "mode": "container/bridge"
+        }
+      ],
+      "requirePorts": false,
+      "unreachableStrategy": {
+        "expungeAfterSeconds": 0,
+        "inactiveAfterSeconds": 0
+      },
+      "upgradeStrategy": {
+        "maximumOverCapacity": 1,
+        "minimumHealthCapacity": 1
+      }
+    }
+  ],
+  "dependencies": [],
+  "groups": [
+    {
+      "apps": [
+        {
+          "backoffFactor": 1.15,
+          "backoffSeconds": 1,
+          "cmd": "sleep 3 && python -m http.server 80",
+          "container": {
+            "docker": {
+              "forcePullImage": false,
+              "image": "python:3",
+              "parameters": [],
+              "privileged": false
+            },
+            "portMappings": [
+              {
+                "containerPort": 80,
+                "hostPort": 0,
+                "labels": {},
+                "protocol": "tcp",
+                "servicePort": 10108
+              }
+            ],
+            "type": "DOCKER",
+            "volumes": []
+          },
+          "cpus": 0.1,
+          "dependencies": [
+            "/department-a/service-common"
+          ],
+          "disk": 0,
+          "executor": "",
+          "gpus": 0,
+          "healthChecks": [
+            {
+              "delaySeconds": 15,
+              "gracePeriodSeconds": 10,
+              "ignoreHttp1xx": false,
+              "intervalSeconds": 2,
+              "maxConsecutiveFailures": 10,
+              "path": "/",
+              "portIndex": 0,
+              "protocol": "HTTP",
+              "timeoutSeconds": 10
+            }
+          ],
+          "id": "/department-a/product-a/service-a",
+          "instances": 2,
+          "killSelection": "YOUNGEST_FIRST",
+          "labels": {},
+          "maxLaunchDelaySeconds": 3600,
+          "mem": 32,
+          "networks": [
+            {
+              "mode": "container/bridge"
+            }
+          ],
+          "requirePorts": false,
+          "unreachableStrategy": {
+            "expungeAfterSeconds": 0,
+            "inactiveAfterSeconds": 0
+          },
+          "upgradeStrategy": {
+            "maximumOverCapacity": 1,
+            "minimumHealthCapacity": 1
+          }
+        },
+        {
+          "backoffFactor": 1.15,
+          "backoffSeconds": 1,
+          "cmd": "sleep 3 && python -m http.server $PORT0",
+          "container": {
+            "docker": {
+              "forcePullImage": false,
+              "image": "python:3",
+              "parameters": [],
+              "privileged": false
+            },
+            "type": "DOCKER",
+            "volumes": []
+          },
+          "cpus": 0.1,
+          "dependencies": [
+            "/department-a/product-a/service-a"
+          ],
+          "disk": 0,
+          "executor": "",
+          "gpus": 0,
+          "healthChecks": [
+            {
+              "delaySeconds": 15,
+              "gracePeriodSeconds": 10,
+              "ignoreHttp1xx": false,
+              "intervalSeconds": 2,
+              "maxConsecutiveFailures": 10,
+              "path": "/",
+              "portIndex": 0,
+              "protocol": "HTTP",
+              "timeoutSeconds": 10
+            }
+          ],
+          "id": "/department-a/product-a/service-b",
+          "instances": 2,
+          "killSelection": "YOUNGEST_FIRST",
+          "labels": {},
+          "maxLaunchDelaySeconds": 3600,
+          "mem": 32,
+          "networks": [
+            {
+              "mode": "host"
+            }
+          ],
+          "portDefinitions": [
+            {
+              "port": 10110,
+              "protocol": "tcp"
+            }
+          ],
+          "requirePorts": false,
+          "unreachableStrategy": {
+            "expungeAfterSeconds": 0,
+            "inactiveAfterSeconds": 0
+          },
+          "upgradeStrategy": {
+            "maximumOverCapacity": 1,
+            "minimumHealthCapacity": 1
+          }
+        }
+      ],
+      "dependencies": [],
+      "groups": [],
+      "id": "/department-a/product-a"
+    }
+  ],
+  "id": "/department-a"
+}
+

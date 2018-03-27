@@ -1,0 +1,28 @@
+{
+  "id": "python-upgrade",
+  "cmd": "sleep 5 && python -m http.server $PORT0",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "python:3",
+      "network": "HOST",
+      "forcePullImage":true
+    }
+  },
+  "instances": 20,
+  "cpus": 0.1,
+  "mem": 65,
+  "healthChecks": [{
+      "protocol": "HTTP",
+      "path": "/",
+      "portIndex": 0,
+      "timeoutSeconds": 10,
+      "gracePeriodSeconds": 10,
+      "intervalSeconds": 2,
+      "maxConsecutiveFailures": 10
+  }],
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 0.85,
+    "maximumOverCapacity": 0.15
+  }
+}

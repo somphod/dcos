@@ -1,0 +1,55 @@
+{
+  "id": "/mysql-pv",
+  "cmd": "docker-entrypoint.sh --datadir=/mnt/mesos/sandbox/mysqldata/",
+  "cpus": 1,
+  "mem": 1024,
+  "disk": 600,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "mysqldata",
+        "persistent": {
+          "size": 500
+        },
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "mysql:5.7",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 3306,
+          "hostPort": 0,
+          "servicePort": 10000,
+          "protocol": "tcp",
+          "labels": {
+            "VIP_0": "3.3.0.6:3306"
+          }
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "env": {
+    "MYSQL_ROOT_PASSWORD": "supersecret",
+    "MYSQL_USER": "ben",
+    "MYSQL_PASSWORD": "secret",
+    "MYSQL_DATABASE": "my_database"
+  },
+  "healthChecks": [
+    {
+      "protocol": "TCP",
+      "portIndex": 0,
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "ignoreHttp1xx": false
+    }
+  ]
+}

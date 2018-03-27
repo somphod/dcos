@@ -1,0 +1,14 @@
+{
+  "id": "/http-blin",
+  "cpus": 0.1,
+  "mem": 32,
+  "ports": [0],
+  "cmd": "python -m http.server $PORT0",
+  "instances": 2,
+  "container":{
+    "docker":{
+      "image":"python:3"
+    }
+  },
+  "acceptedResourceRoles":["slave_public"]
+}

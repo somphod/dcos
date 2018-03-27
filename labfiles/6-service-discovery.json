@@ -1,0 +1,38 @@
+{
+  "id": "web-blin",
+  "cmd": null,
+  "cpus": 0.1,
+  "mem": 65,
+  "disk": 0,
+  "instances": 5,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "nginx:1.7.7",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "servicePort": 10007,
+          "protocol": "tcp"
+        }
+      ],
+      "forcePullImage": true
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/",
+      "portIndex": 0,
+      "timeoutSeconds": 10,
+      "gracePeriodSeconds": 10,
+      "intervalSeconds": 2,
+      "maxConsecutiveFailures": 10
+    }
+  ],
+  "constraints": [],
+  "acceptedResourceRoles": [
+    "*"
+  ]
+}

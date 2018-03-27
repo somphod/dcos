@@ -1,0 +1,36 @@
+{
+  "id": "/hello",
+  "cmd": "while true; do date >> $MESOS_SANDBOX/mydata/date.txt && sleep 30; done",
+  "cpus": 0.1,
+  "mem": 32,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "MESOS",
+    "volumes": [
+      {
+        "containerPath": "mydata",
+        "mode": "RW",
+        "external": {
+          "size": 1,
+          "name": "mesosphere",
+          "provider": "dvdi",
+          "options": {
+            "dvdi/driver": "rexray"
+          }
+        }
+      }
+    ]
+  },
+  "portDefinitions": [
+    {
+      "port": 10002,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 0,
+    "maximumOverCapacity": 0
+  }
+}
